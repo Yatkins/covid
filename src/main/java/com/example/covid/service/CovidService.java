@@ -1,5 +1,6 @@
 package com.example.covid.service;
 
+import com.example.covid.model.MyDate;
 import com.example.covid.model.TimeServerResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
@@ -17,8 +18,9 @@ public class CovidService{
     private final RestTemplate restTemplate;
 
     public String getQuarentineTime(int year, int month, int day){
+        TimeServerResponse timeServerResponse;
         try {
-            TimeServerResponse timeServerResponse = restTemplate.exchange("http://localhost:8080/api/v1/getTime", //before i had localhost:8382/api/v1/getTime
+            timeServerResponse = restTemplate.exchange("http://localhost:8080/api/v1/getTime", //before i had localhost:8382/api/v1/getTime
                     HttpMethod.GET,
                     null,
                     TimeServerResponse.class).getBody();
@@ -33,9 +35,9 @@ public class CovidService{
             }
             else{
                 if(14 - ChronoUnit.DAYS.between(covid_day, today) > 0){
-                    return "Quorenting for " + (14 - ChronoUnit.DAYS.between(covid_day, today)) + " more days.";
+                    return "Quarantine for " + (14 - ChronoUnit.DAYS.between(covid_day, today)) + " more days.";
                 }else{
-                    return "Quorentine is over!!";
+                    return "Quarantine is over!!";
                 }
             }
         }catch(RestClientException e){

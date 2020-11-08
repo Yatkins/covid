@@ -1,10 +1,9 @@
 package com.example.covid.controller;
 
+import com.example.covid.model.MyDate;
 import com.example.covid.service.CovidService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -21,7 +20,7 @@ public class CovidController {
     }
 
     @PostMapping("/date")
-    public String getQuarantineTime(@RequestBody Date date){
+    public String getQuarantineTimePost(@RequestBody MyDate date){
         return covidService.getQuarentineTime(date.getYear(), date.getMonth(), date.getDay());
     }
 
